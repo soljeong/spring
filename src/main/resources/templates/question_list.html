@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             <tr th:each="question, loop : ${paging}">
-                <td th:text="${loop.count}"></td>
+                <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
                 <td>
                     <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
           <!-- 타임리프는 문자열을 연결(concatenation)할 때 | 문자를 사용한다. -->
