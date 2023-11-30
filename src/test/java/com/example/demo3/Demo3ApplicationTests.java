@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo3.answer.Answer;
+import com.example.demo3.answer.AnswerRepository;
+import com.example.demo3.question.Question;
+import com.example.demo3.question.QuestionRepository;
+
 @SpringBootTest
 class Demo3ApplicationTests {
 
