@@ -1,0 +1,5 @@
+<div th:fragment="formErrorsFragment" class="alert alert-danger" 
+    role="alert" th:if="${#fields.hasAnyErrors()}">
+    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+</div>
+<!-- 타임리프의 th:replace 속성을 사용하면 공통 템플릿을 템플릿 내에 삽입할수 있다. <div th:replace="~{form_errors :: formErrorsFragment}"></div> 의 의미는 div 엘리먼트를 form_errors.html 파일의 th:fragment 속성명이 formErrorsFragment인 엘리먼트로 교체하라는 의미이다. -->
