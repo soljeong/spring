@@ -3,6 +3,7 @@ package com.example.demo3.answer;
 import java.time.LocalDateTime;
 
 import com.example.demo3.question.Question;
+import com.example.demo3.user.SiteUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,4 +29,7 @@ public class Answer {
 
     @ManyToOne
     private Question question;
+
+    @ManyToOne
+    private SiteUser author;
 }
