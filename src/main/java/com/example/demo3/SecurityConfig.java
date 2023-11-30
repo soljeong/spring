@@ -15,31 +15,36 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
-                .headers((headers) -> headers
-                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-                .formLogin((formLogin) -> formLogin
-                        .loginPage("/user/login")
-                        .defaultSuccessUrl("/"));
-        return http.build();
-    }
+        @Bean
+        SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                                                .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+                                .csrf((csrf) -> csrf
+                                                .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+                                .headers((headers) -> headers
+                                                .addHeaderWriter(new XFrameOptionsHeaderWriter(
+                                                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+                                .formLogin((formLogin) -> formLogin
+                                                .loginPage("/user/login")
+                                                .defaultSuccessUrl("/"))
+                                .logout((logout) -> logout
+                                                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                                                .logoutSuccessUrl("/")
+                                                .invalidateHttpSession(true));
+                return http.build();
+        }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-    // AuthenticationManager는 사용자 인증시 앞에서 작성한 UserSecurityService와 PasswordEncoder를 사용한다
+        @Bean
+        AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+                        throws Exception {
+                return authenticationConfiguration.getAuthenticationManager();
+        }
+        // AuthenticationManager는 사용자 인증시 앞에서 작성한 UserSecurityService와 PasswordEncoder를
+        // 사용한다
 }
