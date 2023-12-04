@@ -1,0 +1,22 @@
+Answer {
+    shape: class
+    
+id
+content
+createDate
+modifyDate
+question
+author
+}
+AnswerController{
+    shape: class
+
+    questionService
+    answerService
+    userService
+
+    createAnswer(model, id, answerForm, bindingResult, principal) : String
+    modifyAnswer(answerForm, id, principal) : String
+    
+
+}

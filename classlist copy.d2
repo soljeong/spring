@@ -1,0 +1,31 @@
+question(/question): {
+  shape: sequence_diagram
+
+  qc: QuestionController
+  qs: QuestionService
+  qr: QuestionRepository
+
+  질문조회: {
+    get(/list): {
+      qc -> qs: list(model, page)
+      qs -> qr: getList(page)
+      qr -> qs: page
+      qs -> qc: model+page, question_list
+    }
+    get(/detail/id): {
+      qc -> qs: detail(model, id, answerForm)
+      qs -> qr: getQuestion(id)
+      qr -> qs: question
+      qs -> qc: model+question, question_detail
+    }
+  }
+  질문작성: {
+    get(/create): {
+      qc -> qc: quetion_form
+    }
+    post(/detail/id): {
+      qc -> qs: questionCreate(questionForm, bindingResult, principal)
+      qs -> qr: create(subject, content, user)
+    }
+  }
+}
