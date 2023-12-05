@@ -3,6 +3,7 @@ package com.example.demo3.question;
 import java.time.LocalDateTime;
 
 import java.util.List;
+import java.util.Set;
 
 import com.example.demo3.answer.Answer;
 import com.example.demo3.user.SiteUser;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -36,11 +38,13 @@ public class Question {
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
 
-
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter;
 
 }
